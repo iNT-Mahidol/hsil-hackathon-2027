@@ -14,12 +14,12 @@ const LANG = document.documentElement.lang === 'en' ? 'en' : 'th';
 const STRINGS = {
   th: {
     cta: { label: 'สมัครเข้าร่วมการแข่งขัน', short: 'สมัคร', note: 'เปิดรับสมัครแล้ว', status: 'เปิดรับสมัครแล้ว' },
-    daysLeft: ['อีก ', ' วันถึงวันแข่งขัน'],
+    countdown: (days) => `อีก ${days} วันถึงวันแข่งขัน 16–17 เมษายน 2570`,
     stepStatus: 'สถานะ: ', stepNow: 'ช่วงปัจจุบัน', stepNext: 'ลำดับถัดไป',
   },
   en: {
     cta: { label: 'Apply now', short: 'Apply', note: 'Applications are open', status: 'Open' },
-    daysLeft: ['', ' days until the hackathon'],
+    countdown: (days) => `${days} days until the hackathon on 16–17 April 2027`,
     stepStatus: 'Status: ', stepNow: 'Current stage', stepNext: 'Up next',
   },
 }[LANG];
@@ -41,18 +41,40 @@ function applyCta(cta) {
   document.querySelectorAll('[data-reg-status]').forEach((el) => { el.textContent = cta.status; });
 }
 
-// ---- Days left: one quiet line under the facts strip, days only (no ticking). Hidden without JS ----
-function setupDaysLeft() {
-  const el = document.querySelector('[data-days-left]');
-  if (!el) return;
+// ---- Countdown: four tabular numerals, aria-hidden; screen readers get one static sentence ----
+const pad = (n, len = 2) => String(n).padStart(len, '0');
+
+function splitRemaining(ms) {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  return { d: Math.floor(s / 86400), h: Math.floor((s % 86400) / 3600), m: Math.floor((s % 3600) / 60), s: s % 60 };
+}
+
+function setupCountdown() {
+  const box = document.querySelector('[data-countdown]');
+  if (!box) return;
   const remaining = HACKATHON_START_UTC - Date.now();
-  if (remaining <= 0) return; // after the start the facts strip already says everything
-  const days = Math.ceil(remaining / MS_PER_DAY);
-  const num = document.createElement('span');
-  num.className = 'mono';
-  num.textContent = days.toLocaleString('en-US');
-  el.replaceChildren(STRINGS.daysLeft[0], num, STRINGS.daysLeft[1]);
-  el.hidden = false;
+  if (remaining <= 0) return; // after the start the no-JS date fallback is the right thing to show
+
+  const grid = box.querySelector('.countdown__grid');
+  const cells = {};
+  grid.querySelectorAll('[data-unit]').forEach((el) => { cells[el.dataset.unit] = el; });
+  const text = box.querySelector('[data-countdown-text]');
+  if (text) text.textContent = STRINGS.countdown(Math.ceil(remaining / MS_PER_DAY));
+
+  const render = () => {
+    const t = splitRemaining(HACKATHON_START_UTC - Date.now());
+    cells.d.textContent = pad(t.d, 3);
+    cells.h.textContent = pad(t.h);
+    cells.m.textContent = pad(t.m);
+    cells.s.textContent = pad(t.s);
+  };
+  // Reduced motion: no per-second ticking. Drop the seconds cell and refresh once a minute.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) cells.s.parentElement.hidden = true;
+  render();
+  grid.hidden = false;
+  box.classList.add('is-live');
+  setInterval(render, reduce ? 60000 : 1000);
 }
 
 // ---- Pathway: badge the first stage that hasn't ended ----
@@ -149,6 +171,6 @@ function setupMobileBar() {
 applyCta(CTA);
 setupNavToggle();
 setupMobileBar();
-setupDaysLeft();
+setupCountdown();
 markCurrentStep(Date.now());
 setupCountUps();

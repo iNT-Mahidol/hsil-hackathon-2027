@@ -2,13 +2,14 @@
   "name": "hsil-thailand-hub",
   "private": true,
   "scripts": {
-    "build": "npm run build:main && npm run build:v2",
+    "build": "npm run build:main && npm run build:v2 && npm run build:schema",
     "build:main": "sass scss/main.scss css/styles.css --no-source-map",
     "build:v2": "sass v2/scss/main.scss v2/css/styles.css --no-source-map",
     "watch": "sass scss/main.scss css/styles.css --no-source-map --watch",
     "watch:v2": "sass v2/scss/main.scss v2/css/styles.css --no-source-map --watch",
     "export:wp": "node scripts/export-wp.mjs",
-    "test": "node --test scripts/*.test.mjs"
+    "test": "node --test scripts/*.test.mjs",
+    "build:schema": "node scripts/build-schema.mjs"
   },
   "devDependencies": {
     "sass": "^1.108.2"

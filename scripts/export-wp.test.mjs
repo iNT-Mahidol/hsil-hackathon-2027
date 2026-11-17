@@ -63,6 +63,7 @@ test('extracts meta from head and converts preload paths', () => {
     fonts: 'https://fonts.googleapis.com/css2?family=A&display=swap',
     preload: ['assets/hero.webp'],
     image: '',
+    schema: '',
   });
   assert.throws(() => extractMeta('<head></head>', { prefix: '' }), /no <title>/);
 });
@@ -79,6 +80,13 @@ test('extracts og:image as a landing-relative path', () => {
 test('fails when og:image is missing on disk or not under assets/', () => {
   assert.throws(() => extractMeta(ogHead('assets/nope.jpg'), { prefix: '', exists: () => false }), /og:image file missing: assets\/nope.jpg/);
   assert.throws(() => extractMeta(ogHead('https://x.org/a.jpg'), { prefix: '', exists: () => true }), /og:image must be/);
+});
+
+test('passes JSON-LD through and fails on invalid JSON', () => {
+  const ld = (j) => ogHead('assets/og.jpg').replace('</head>', `<script type="application/ld+json">${j}</script></head>`);
+  assert.equal(extractMeta(ld('{"a":"\\u003c"}'), { prefix: '' }).schema, '{"a":"\\u003c"}');
+  assert.throws(() => extractMeta(ld('{nope'), { prefix: '' }), /invalid JSON-LD/);
+  assert.match(renderMeta({ title: 't', description: 'd', fonts: 'f', preload: [], image: '', schema: '{"a":"\\u003c"}' }, 'x'), /'schema' {6}=> '\{"a":"\\\\u003c"\}',/);
 });
 
 test('renders meta with PHP single-quoted escaping', () => {
