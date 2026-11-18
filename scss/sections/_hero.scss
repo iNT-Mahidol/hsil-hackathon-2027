@@ -1,14 +1,14 @@
 @use "../abstracts" as *;
 
-// The client artwork's key visual brought to life (assets/aw/Harvard Hackathon 2027_ComingSoon.jpg).
-// Same approach as the root scss/sections/_hero.scss: artwork background anchored right/bottom over the
-// artwork's deep teal, a left-side scrim so the copy stays at 4.5:1 or better, chrome title, mint year.
+// v2's layout (masthead across the full width, then copy beside a small fact sheet) in the artwork's colours:
+// artwork background anchored right/bottom over deep teal, a left scrim so the copy stays at 4.5:1 or better,
+// chrome title, mint year and theme line.
 .hero {
   position: relative; overflow: hidden; color: var(--white);
   --focus: var(--mint);
   background:
-    // strong under the title column, easing off where the theme line meets the map dots, clear on the right
-    linear-gradient(90deg, var(--hero-scrim) 0%, var(--hero-scrim) 42%, var(--hero-scrim-soft) 66%, transparent 88%),
+    // ends before the map column so the map stays bright
+    linear-gradient(90deg, var(--hero-scrim) 0%, var(--hero-scrim) 36%, var(--hero-scrim-soft) 50%, transparent 62%),
     var(--hero-base) url("../assets/hero-bg.webp") right bottom / cover no-repeat;
   // Below desktop the copy runs almost the full width, so the shade does too
   @include tablet-down {
@@ -19,11 +19,15 @@
   @include mobile { background-position: 0 0, 70% bottom; }
 
   &__inner {
-    padding-top: clamp(40px, 5.5vw, 76px); padding-bottom: clamp(48px, 6vw, 88px);
-    min-height: min(84vh, 780px); display: flex; align-items: center;
-    @include tablet-down { min-height: 0; }
+    padding-top: clamp(32px, 4vw, 56px); padding-bottom: clamp(40px, 5vw, 64px);
+    // Title and copy on the left; the map and fact sheet share one right column that runs beside both
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(8px, 1.4vw, 20px) 24px;
+    @include tablet-down { grid-template-columns: minmax(0, 1fr); }
   }
-  &__copy { max-width: 820px; min-width: 0; display: flex; flex-direction: column; }
+  &__mast {
+    grid-column: 1 / 8; grid-row: 1; display: flex; flex-direction: column; gap: clamp(14px, 2vw, 24px);
+    @include tablet-down { grid-column: 1 / -1; }
+  }
 
   // Eyebrow as in the artwork: small crimson bar, white text
   .eyebrow {
@@ -31,36 +35,118 @@
     &::before { background: var(--crimson-bright); width: 6px; }
   }
 
-  // "Hackathon 2027" is ~8.1em wide in Mona Sans 800 (about the same in the Arial fallback), so 10vw keeps it
-  // inside the viewport at 360px with a 16px gutter. "Mahidol x Harvard" is the smaller lead line above it,
-  // ~9.5em wide, so 6vw is safe too. Lines never wrap.
-  &__title {
-    display: flex; flex-direction: column; margin-top: clamp(14px, 1.6vw, 22px);
-    font-family: var(--font-display); font-weight: 800; line-height: 0.92; letter-spacing: -0.01em;
+  // "Hackathon" is ~5.5em wide in Mona Sans 800 (and in the Arial fallback), so 10vw keeps it inside the
+  // viewport at 360px with a 16px gutter. The "Mahidol x Harvard" lead (~9.5em) sits above it at 0.5em.
+  // Lines never wrap.
+  &__title, &__year {
+    font-family: var(--font-display); font-weight: 800; font-size: clamp(34px, 10vw, 128px);
+    line-height: 0.98; letter-spacing: -0.025em; white-space: nowrap;
   }
-  &__title-main { font-size: clamp(24px, 6vw, 56px); line-height: 1.1; white-space: nowrap; }
-  &__title-sub { font-size: clamp(30px, 10vw, 100px); white-space: nowrap; }
-  &__title-main, &__title-word {
+  // gradient on the visible words only: Chrome paints a clipped .sr-only child through background-clip: text
+  &__title-lead, &__title-word {
     background: linear-gradient(180deg, var(--white) 40%, var(--silver) 72%, var(--white) 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
     filter: drop-shadow(4px 5px 6px var(--title-shadow));
   }
-  &__title-year { color: var(--mint); filter: drop-shadow(4px 5px 4px var(--title-shadow)); }
+  &__title-lead { display: block; width: fit-content; font-size: 0.5em; line-height: 1.2; letter-spacing: -0.01em; }
+  &__year { color: var(--mint); filter: drop-shadow(4px 5px 4px var(--title-shadow)); }
 
+  // The year opens the left column so the fact sheet can sit beside it, inside the first screen
+  &__yearline {
+    display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px clamp(20px, 3vw, 40px);
+    margin-bottom: clamp(8px, 1.6vw, 20px);
+  }
   &__theme {
-    margin-top: clamp(10px, 1.2vw, 16px);
-    font-family: var(--font-display); font-weight: 500; color: var(--mint);
-    font-size: clamp(18px, 2.4vw, 31px); line-height: 1.25; text-wrap: balance;
+    // crimson vertical bar right after "2027", as the eyebrow's bar
+    flex: 1 1 240px; max-width: 15em; align-self: center; padding: 0.15em 0 0.15em clamp(14px, 1.8vw, 24px);
+    border-left: 6px solid var(--crimson-bright);
+    font-family: var(--font-display); color: var(--mint);
+    font-size: clamp(18px, 2.2vw, 30px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em;
+    @include mobile { flex-basis: 100%; }
   }
-  &__th {
-    margin-top: 10px; max-width: 34em;
-    font-size: clamp(16px, 1.5vw, 19px); font-weight: 300; line-height: 1.7; color: var(--white);
+
+  &__body { display: contents; }
+  &__copy {
+    grid-column: 1 / 8; grid-row: 2; display: flex; flex-direction: column; gap: 16px;
+    @include tablet-down { grid-column: 1 / -1; grid-row: auto; }
   }
-  &__when {
-    margin-top: clamp(24px, 3vw, 40px);
-    font-size: clamp(16px, 1.5vw, 19px); font-weight: 400; line-height: 1.5; color: var(--white);
+  &__when { font-size: clamp(18px, 1.8vw, 22px); font-weight: 500; line-height: 1.4; }
+  // Right column: the Bangkok → Boston map above the fact sheet
+  &__side {
+    grid-column: 8 / -1; grid-row: 1 / 3; align-self: end;
+    display: flex; flex-direction: column; align-items: flex-end; gap: clamp(16px, 2vw, 28px);
+    @include tablet-down { grid-column: 1 / -1; grid-row: auto; align-items: flex-start; margin-top: 20px; }
   }
-  &__cta {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: clamp(20px, 2.2vw, 28px);
+  // assets/country-map.png with its baked-in labels erased (they were ~6px at this size), cropped to the dots.
+  // The labels are text now, pinned at the city dots.
+  &__map {
+    position: relative; width: 100%; max-width: 600px;
+    img { display: block; width: 100%; height: auto; }
   }
+  // Plane flying Bangkok → Boston along the map's dashed route (SMIL animateMotion in the map's pixel space,
+  // path fitted to the dashes). Hidden under reduced motion.
+  &__route { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  // the image's own dashes are under 1px at this size, so the route is redrawn on top
+  &__trail {
+    fill: none; stroke: var(--crimson-rule); stroke-width: 1.5px; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke;
+  }
+  &__plane {
+    fill: var(--white); filter: drop-shadow(0 2px 4px var(--title-shadow));
+    @media (prefers-reduced-motion: reduce) { display: none; }
+  }
+  &__pin {
+    position: absolute; transform: translate(-50%, 0.5em);
+    font-family: var(--font-display); font-weight: 500; font-size: clamp(12px, 1.1vw, 15px); line-height: 1.2;
+    color: var(--white); white-space: nowrap; text-shadow: 0 1px 3px var(--title-shadow);
+    &--bos { left: 25.5%; top: 24.9%; }
+    &--bkk { left: 78.2%; top: 49.2%; }
+  }
+  &__th { max-width: 34em; font-size: clamp(16px, 1.5vw, 19px); font-weight: 300; line-height: 1.7; }
+  &__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 8px; }
+}
+
+// Small fact sheet over the artwork: v2's "ticket" (countdown, then date and registration status), kept compact
+.ticket {
+  max-width: 360px; width: 100%;
+  background: var(--hero-panel); border: 1px solid var(--deep-rule-strong); border-radius: var(--radius);
+  @include tablet-down { max-width: 420px; }
+
+  &__head {
+    padding: 8px 16px; border-bottom: 1px solid var(--deep-rule-strong);
+    font-size: 13px; font-weight: 500; color: var(--mint-soft);
+  }
+  .facts { padding: 0 16px; }
+  .facts__row {
+    grid-template-columns: 88px minmax(0, 1fr); gap: 2px 12px; padding: 7px 0; border-color: var(--deep-rule);
+    &:first-child { border-top: 0; }
+    &:last-child { border-bottom: 0; }
+  }
+  dt { font-size: 13px; color: var(--on-deep-muted); }
+  dd { font-size: 14px; color: var(--on-deep); }
+  .status-dot { background: var(--crimson-rule); }
+  .is-registration-open & .status-dot { background: var(--mint); }
+}
+
+// Countdown as in v2: four tabular numerals once JS runs, the date without JS (or after the start)
+.countdown {
+  padding: 12px 16px; border-bottom: 1px solid var(--deep-rule-strong); display: flex; flex-direction: column; gap: 8px;
+
+  &__label { font-size: 13px; color: var(--on-deep-muted); }
+  &__fallback { display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+  &__date { font-size: 24px; line-height: 1.15; font-weight: 500; color: var(--mint); }
+  &.is-live &__fallback { display: none; }
+
+  &__grid {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    &[hidden] { display: none; }
+  }
+  &__cell {
+    display: flex; flex-direction: column; gap: 2px; padding: 0 10px; border-left: 1px solid var(--deep-rule);
+    &:first-child { padding-left: 0; border-left: 0; }
+  }
+  &__num {
+    font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; color: var(--mint);
+    font-size: clamp(22px, 2.2vw, 28px); line-height: 1.1; letter-spacing: -0.02em;
+  }
+  &__unit { font-size: 12px; color: var(--on-deep-muted); line-height: 1.4; }
 }
