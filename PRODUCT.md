@@ -15,7 +15,7 @@ web
 
 ## Product Purpose
 
-The official website of the Thailand Hub of the Harvard Health Systems Innovation Lab (HSIL) Hackathon 2027, organized by Mahidol University: a two-day health systems innovation competition on AI, 16–17 April 2027 in Bangkok. Winning teams continue into Harvard's online Bootcamps and Venture Building program, with Demo Day in Boston for finalists.
+The official website of the Thailand Hub of the Harvard Health Systems Innovation Lab (HSIL) Hackathon 2027, organized by Mahidol University: a two-day health systems innovation competition on AI, 9–10 April 2027 in Bangkok. Winning teams continue into Harvard's online Bootcamps and Venture Building program, with Demo Day in Boston for finalists.
 
 Success has two equal parts:
 1. Enough qualified applicants once applications open (December 2026 to mid-February 2027). Until then the page builds awareness, and every CTA reads "Coming Soon".

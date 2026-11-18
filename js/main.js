@@ -5,8 +5,8 @@
 const REGISTRATION_OPEN = false;
 const APPLY_URL = '';
 
-// 16 Apr 2027, 08:00 Bangkok (UTC+7)
-const HACKATHON_START_UTC = Date.UTC(2027, 3, 16, 1, 0, 0);
+// 9 Apr 2027, 08:00 Bangkok (UTC+7)
+const HACKATHON_START_UTC = Date.UTC(2027, 3, 9, 1, 0, 0);
 const MS_PER_DAY = 86400000;
 
 // The page language comes from <html lang>: index.html is Thai, en/index.html is English.
@@ -14,12 +14,12 @@ const LANG = document.documentElement.lang === 'en' ? 'en' : 'th';
 const STRINGS = {
   th: {
     cta: { label: 'สมัครเข้าร่วมการแข่งขัน', short: 'สมัคร', note: 'เปิดรับสมัครแล้ว', status: 'เปิดรับสมัครแล้ว' },
-    countdown: (days) => `อีก ${days} วันถึงวันแข่งขัน 16–17 เมษายน 2570`,
+    countdown: (days) => `อีก ${days} วันถึงวันแข่งขัน 9–10 เมษายน 2570`,
     stepStatus: 'สถานะ: ', stepNow: 'ช่วงปัจจุบัน', stepNext: 'ลำดับถัดไป',
   },
   en: {
     cta: { label: 'Apply now', short: 'Apply', note: 'Applications are open', status: 'Open' },
-    countdown: (days) => `${days} days until the hackathon on 16–17 April 2027`,
+    countdown: (days) => `${days} days until the hackathon on 9–10 April 2027`,
     stepStatus: 'Status: ', stepNow: 'Current stage', stepNext: 'Up next',
   },
 }[LANG];

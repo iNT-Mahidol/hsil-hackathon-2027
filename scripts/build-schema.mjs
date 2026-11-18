@@ -13,7 +13,7 @@ const PAGES = [
 ];
 
 // Confirmed event facts (dates also in js/main.js HACKATHON_START_UTC)
-const EVENT = { startDate: '2027-04-16', endDate: '2027-04-17' };
+const EVENT = { startDate: '2027-04-09', endDate: '2027-04-10' };
 const PLACE = { th: 'กรุงเทพมหานคร', en: 'Bangkok' };
 const ORGANIZER = {
   th: { name: 'มหาวิทยาลัยมหิดล', alternateName: 'Mahidol University' },

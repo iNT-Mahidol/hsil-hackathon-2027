@@ -17,7 +17,7 @@ test('builds Event from h1 and description, FAQ without data-mock answers', () =
   assert.equal(event['@type'], 'Event');
   assert.equal(event.name, 'Mahidol x Harvard Hackathon 2027');
   assert.equal(event.description, 'Desc');
-  assert.equal(event.startDate, '2027-04-16');
+  assert.equal(event.startDate, '2027-04-09');
   assert.equal(event.organizer.name, 'Mahidol University');
   assert.deepEqual(faq.mainEntity, [
     { '@type': 'Question', name: 'Is it free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, no fee.' } },
