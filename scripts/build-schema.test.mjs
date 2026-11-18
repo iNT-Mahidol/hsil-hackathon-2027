@@ -39,3 +39,8 @@ test('inserts before hreflang once, then replaces in place', () => {
 test('escapes < so the JSON cannot close the script element', () => {
   assert.match(withSchema(PAGE, { a: '</script>' }), /"\\u003c\/script>"/);
 });
+
+test('leaves out the FAQPage while the FAQ section is hidden', () => {
+  const graph = schemaFor(`<section id="faq" hidden class="section">${PAGE}</section>`, 'en')['@graph'];
+  assert.deepEqual(graph.map((n) => n['@type']), ['Event']);
+});

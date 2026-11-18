@@ -40,8 +40,10 @@ function faqOf(html) {
 export function schemaFor(html, lang) {
   const name = text(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '');
   const description = html.match(/<meta name="description" content="([^"]*)"/)?.[1];
-  const faq = faqOf(html);
-  if (!name || !description || !faq.length) throw new Error(`missing h1, description or confirmed FAQ (${lang})`);
+  // A hidden FAQ section stays out of the structured data (Google rejects markup for content users can't see).
+  const faqHidden = /<section id="faq"[^>]*\bhidden\b/.test(html);
+  const faq = faqHidden ? [] : faqOf(html);
+  if (!name || !description || (!faqHidden && !faq.length)) throw new Error(`missing h1, description or confirmed FAQ (${lang})`);
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -61,7 +63,7 @@ export function schemaFor(html, lang) {
         },
         organizer: { '@type': 'CollegeOrUniversity', ...ORGANIZER[lang], url: 'https://mahidol.ac.th/' },
       },
-      { '@type': 'FAQPage', inLanguage: lang, mainEntity: faq },
+      ...(faq.length ? [{ '@type': 'FAQPage', inLanguage: lang, mainEntity: faq }] : []),
     ],
   };
 }
