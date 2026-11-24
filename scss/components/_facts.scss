@@ -14,12 +14,25 @@
 
   &__status { display: flex; align-items: center; gap: 10px; }
 
-  &--wide {
-    .facts__row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 14px 0; }
-    dd { font-size: 17px; font-weight: 500; }
-    // sits under a .split rule already
-    .facts__row:first-child { border-top: 0; padding-top: 4px; }
+  // quick facts in the about section: label over value, three across (two on mobile, so six never orphan)
+  &--grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px;
+    @include mobile { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+
+    .facts__row {
+      grid-template-columns: minmax(0, 1fr); align-content: start; gap: 6px;
+      padding: 18px 0 20px; border-bottom: 0; border-top: 1px solid var(--rule);
+      // the first row sits under the .split rule already
+      &:nth-child(-n + 3) { border-top: 0; padding-top: 4px; }
+      @include mobile {
+        padding: 14px 0 16px;
+        &:nth-child(3) { border-top: 1px solid var(--rule); padding-top: 14px; }
+      }
+    }
+    dd { font-size: clamp(17px, 1.7vw, 21px); font-weight: 500; line-height: 1.4; text-wrap: balance; }
   }
+  &__note { display: block; margin-top: 2px; font-size: 14px; font-weight: 400; color: var(--ink-soft); }
+
   &--deep {
     // label above value on mobile so the e-mail address never breaks mid-word
     .facts__row { @include mobile { grid-template-columns: minmax(0, 1fr); } }

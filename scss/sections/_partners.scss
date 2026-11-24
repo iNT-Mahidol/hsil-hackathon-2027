@@ -62,3 +62,18 @@
     &:hover::after { color: var(--crimson); }
   }
 }
+
+// 2569 co-organisers and sponsors: logos at one optical height, the lead tier larger
+.logo-wall {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px;
+  @include mobile { gap: 16px 24px; }
+
+  img {
+    height: 44px; width: auto; max-width: 150px; object-fit: contain;
+    @include mobile { height: 34px; max-width: 120px; }
+  }
+  &--lead {
+    img { height: 52px; max-width: 200px; @include mobile { height: 42px; max-width: 150px; } }
+    + .logo-wall { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--rule); }
+  }
+}

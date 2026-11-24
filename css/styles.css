@@ -666,17 +666,50 @@ a:hover {
   align-items: center;
   gap: 10px;
 }
-.facts--wide .facts__row {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  padding: 14px 0;
+.facts--grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 32px;
 }
-.facts--wide dd {
-  font-size: 17px;
-  font-weight: 500;
+@media (max-width: 720px) {
+  .facts--grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 16px;
+  }
 }
-.facts--wide .facts__row:first-child {
+.facts--grid .facts__row {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 6px;
+  padding: 18px 0 20px;
+  border-bottom: 0;
+  border-top: 1px solid var(--rule);
+}
+.facts--grid .facts__row:nth-child(-n+3) {
   border-top: 0;
   padding-top: 4px;
+}
+@media (max-width: 720px) {
+  .facts--grid .facts__row {
+    padding: 14px 0 16px;
+  }
+  .facts--grid .facts__row:nth-child(3) {
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+  }
+}
+.facts--grid dd {
+  font-size: clamp(17px, 1.7vw, 21px);
+  font-weight: 500;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+.facts__note {
+  display: block;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink-soft);
 }
 @media (max-width: 720px) {
   .facts--deep .facts__row {
@@ -1814,6 +1847,45 @@ a:hover {
 }
 .press a:hover::after {
   color: var(--crimson);
+}
+
+.logo-wall {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 28px;
+}
+@media (max-width: 720px) {
+  .logo-wall {
+    gap: 16px 24px;
+  }
+}
+.logo-wall img {
+  height: 44px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+}
+@media (max-width: 720px) {
+  .logo-wall img {
+    height: 34px;
+    max-width: 120px;
+  }
+}
+.logo-wall--lead img {
+  height: 52px;
+  max-width: 200px;
+}
+@media (max-width: 720px) {
+  .logo-wall--lead img {
+    height: 42px;
+    max-width: 150px;
+  }
+}
+.logo-wall--lead + .logo-wall {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
 }
 
 .faq {

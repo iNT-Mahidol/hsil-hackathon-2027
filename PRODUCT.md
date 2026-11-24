@@ -38,7 +38,7 @@ The only official Thailand Hub of the global HSIL Hackathon: the 8th global edit
 - `v2/` (with `v2/en/`) is an alternative design kept for comparison and shares the same copy.
 - Content in `[square brackets]` is a placeholder; unconfirmed facts carry `data-mock`. Never invent values for either.
 - Harvard names and marks are used under the Collaborative Hub agreement; the Harvard logo still needs official approval or an HSIL-supplied file.
-- Open: application URL, sponsors, real contact details, and confirmation of the mock figures (prize split, mentors, 2026 tallies, winner write-ups, minimum age, pitch language).
+- Open: application URL, 2027 sponsors, the 2027 venue ("รอประกาศ" / "To be announced"), and confirmation of the hospital challenges.
 
 ## Brand Commitments
 
@@ -49,9 +49,9 @@ The only official Thailand Hub of the global HSIL Hackathon: the 8th global edit
 
 ## Evidence on Hand
 
-- Real: 2026 network figures (58 Hubs, 41 countries, 12,780 participants), 2026 prize total of 150,000 THB, the 2026 venue and date, press coverage (Thansettakij, Naewna, Thailand.go.th, Manager Online), the NIA strategic partnership, and Harvard's published 2027 schedule.
-- Mock, awaiting confirmation (marked `data-mock`): the 2027 prize split, mentor count, hospital challenges, certificates, 2026 applicant and team counts, the 2026 winners and their quote, event photos (Unsplash stand-ins), and contact details.
-- Absent and not to be fabricated: sponsor names and logos, testimonials, real photos of the 2026 event.
+- Real: 2026 network figures (58 Hubs, 41 countries, 12,780 participants), 2026 prize total of 200,000 THB (100,000 / 60,000 / 40,000), 2026 results (41 ideas, 166 participants, 1 team to Harvard's Bootcamp), the 2026 winning teams (VALVE, AIVA CARE, Emily in Boston) and event photos (`assets/2026/`), the 2026 co-organisers and sponsors (`assets/logos/sponsors-2026/`), the coordinator's contact details, the 2027 criteria and quick facts (age 18–88 by Mahidol Hub criteria, pitch in English, prize split 100,000 / 60,000 / 40,000), the 2026 venue and date, press coverage (Thansettakij, Naewna, Thailand.go.th, Manager Online), the NIA strategic partnership, and Harvard's published 2027 schedule.
+- Mock, awaiting confirmation (marked `data-mock`): hospital challenges.
+- Absent and not to be fabricated: 2027 sponsors, testimonials, names of the 2026 special-award teams.
 
 ## Product Principles
 
