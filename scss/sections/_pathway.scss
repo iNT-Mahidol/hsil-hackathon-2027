@@ -1,6 +1,6 @@
 @use "../abstracts" as *;
 
-// 03: กรุงเทพมหานคร -> บอสตัน as a ruled schedule table on the artwork-gradient band. Six columns on
+// 03: กรุงเทพมหานคร -> มหานครบอสตัน as a ruled schedule table on the artwork-gradient band. Six columns on
 // desktop; on tablet two lines per row; on mobile each row stacks (no horizontal scroll).
 .route {
   --route-cols: 48px minmax(170px, 1.25fr) minmax(0, 1.5fr) minmax(140px, 1fr) minmax(0, 1.4fr) 96px;
