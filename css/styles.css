@@ -2022,7 +2022,13 @@ a:hover {
 .contact__title {
   font-size: 17px;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+}
+.contact__note {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--on-deep-muted);
+  margin-bottom: 12px;
 }
 
 .site-footer {
