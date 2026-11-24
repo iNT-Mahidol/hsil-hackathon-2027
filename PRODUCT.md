@@ -43,7 +43,7 @@ The only official Thailand Hub of the global HSIL Hackathon: the 8th global edit
 ## Brand Commitments
 
 - Name: "Mahidol x Harvard Hackathon 2027 — Official Thailand Hub". Mahidol leads as organizer; Harvard HSIL appears as the global partner.
-- Thai voice: the register of an official university announcement. Full sentences, ผู้สมัคร/ผู้เข้าแข่งขัน rather than คุณ/เรา, full month names, and the Buddhist year with the Gregorian year in brackets. English keeps the same formal register and uses Gregorian dates only.
+- Thai voice: the register of an official university announcement. Full sentences, ผู้สมัคร/ผู้เข้าแข่งขัน rather than คุณ/เรา, full month names, and the Buddhist year alone (no Gregorian year in brackets). English keeps the same formal register and uses Gregorian dates only.
 - The client artwork in `assets/aw/` is the visual reference for the main design.
 - Official logos in `assets/logos/` are used unedited.
 
